@@ -5,9 +5,7 @@ export const handler = async (
 ): Promise<APIGatewayProxyResult> => {
   console.log(event);
   let body: { fileName: string } = JSON.parse(event.body as string);
-  let { fileName } = body;
-
-  if (!fileName || fileName === null) {
+  if (!body) {
     return {
       statusCode: 400,
       body: JSON.stringify({
@@ -16,8 +14,18 @@ export const handler = async (
       }),
     };
   }
+  const fileName = body.fileName;
+  console.log(fileName);
 
-  fileName = body.fileName;
+  if (!fileName) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        status: "error",
+        message: "fileName is required",
+      }),
+    };
+  }
 
   const url = await generateUrl(fileName);
 
