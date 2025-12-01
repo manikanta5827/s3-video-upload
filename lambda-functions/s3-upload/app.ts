@@ -13,6 +13,16 @@ export const handler = async (
 ): Promise<APIGatewayProxyResult> => {
   let body: { fileName: string } = JSON.parse(event.body as string);
   let fileName = body.fileName;
+
+  if (!fileName) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        status: "error",
+        message: "fileName is required",
+      }),
+    };
+  }
   const url = await getSignedUrl(
     s3,
     new PutObjectCommand({
