@@ -4,7 +4,7 @@ export const handler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   console.log(event);
-  let body: { fileName: string } = JSON.parse(event.body as string);
+  const body = event.body ? JSON.parse(event.body) : {};
   if (!body) {
     return {
       statusCode: 400,
@@ -14,7 +14,7 @@ export const handler = async (
       }),
     };
   }
-  const fileName = body.fileName;
+  const fileName = body.fileName as string;
   console.log(fileName);
 
   if (!fileName) {
