@@ -32,11 +32,11 @@ jobs:
                   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   aws-region: ${{ secrets.AWS_REGION }}
 
-            # - name: Install dependencies
-            #   run: npm install
+            - name: Install dependencies
+              run: npm install
 
-            # - name: Run Tests
-            #   run: npm test
+            - name: Run Tests
+              run: npm test
 
             - name: SAM build
               run: sam build
