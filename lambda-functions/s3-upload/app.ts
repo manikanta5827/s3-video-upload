@@ -11,10 +11,10 @@ if (!BUCKET_NAME) throw new Error("BUCKET_NAME is not passed in env");
 export const handler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
+  console.log(event);
   let body: { fileName: string } = JSON.parse(event.body as string);
-  let fileName = body.fileName;
 
-  if (!fileName) {
+  if (!body.fileName) {
     return {
       statusCode: 400,
       body: JSON.stringify({
@@ -23,6 +23,9 @@ export const handler = async (
       }),
     };
   }
+  
+  let fileName = body.fileName;
+
   const url = await getSignedUrl(
     s3,
     new PutObjectCommand({
