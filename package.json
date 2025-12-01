@@ -6,7 +6,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "unit": "jest",
+    "compile": "tsc",
+    "test": "npm run compile && npm run unit"
   },
   "keywords": [],
   "author": "",
